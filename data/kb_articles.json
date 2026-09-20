@@ -1,0 +1,691 @@
+{
+  
+  "articles": [
+    {
+      "id": "KB-20",
+      "title": "Password: Recover NSID and Reset Password",
+      "category": "Accounts",
+      "public": true,
+      "synthetic": true,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/20/NSID-Recover-NSID-and-Reset-Your-Password",
+      "steps": [
+        "Go to the NSID password recovery page and click \"I forgot my password\".",
+        "Enter your NSID and click \"Continue\".",
+        "Choose email, SMS, or security questions to verify your identity.",
+        "Enter the verification code or answers and submit them.",
+        "Enter and confirm a new password that meets the password requirements, then click \"Reset Password\".",
+        "Wait at least 15 minutes for the new password to synchronize with USask services.",
+        "Update the saved password on applicable VPN, Wi-Fi, Apple device, mail, and password-manager accounts."
+      ],
+      "notes": [
+        "After a password change the client must update saved wireless networks, VPN, phone mail apps and any password manager",
+        "Synchronisation can take several minutes; a failure immediately afterwards is usually a saved old password"
+      ]
+    },
+      {
+      "id": "KB-433",
+      "title": "Wireless: Connect to uofs-secure Network",
+      "category": "Wireless",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/433/Wireless-Connect-to-uofs-secure-Network",
+      "steps": [
+        "Confirmed the client's NSID was active and PAWS password was current",
+        "{options}",
+        "Selected uofs-secure from the available Wi-Fi networks",
+        "Entered the client's NSID in the format the device requires and their PAWS password",
+        "Accepted the server certificate for iseberg.usask.ca",
+        "Confirmed the connection succeeded and verified internet access"
+      ],
+      "platform_steps": {
+        "windows": [
+          "Confirmed the client's NSID was active and PAWS password was current",
+          "{options}",
+          "Selected the Wi-Fi icon from the bottom right task bar",
+          "Selected uofs-secure and clicked Connect",
+          "Entered the client's NSID as the username and their PAWS password, then selected OK",
+          "Confirmed the connection succeeded and verified internet access"
+        ],
+        "macos": [
+          "Confirmed the client's NSID was active and PAWS password was current",
+          "{options}",
+          "Selected the Wi-Fi icon from the top right menu and selected uofs-secure",
+          "Entered the client's NSID as the username and their PAWS password, then selected Join",
+          "Selected Show Certificate, checked Always trust iseberg.usask.ca and selected Continue",
+          "Had the client enter their Mac administrator username and password at the Certificate Trust Settings prompt, then selected Update Settings",
+          "Confirmed the connection succeeded and verified internet access"
+        ],
+        "ios": [
+          "Confirmed the client's NSID was active and PAWS password was current",
+          "{options}",
+          "Opened Settings, selected Wi-Fi and selected uofs-secure",
+          "Entered the client's NSID as the username and their PAWS password, then selected Join",
+          "Verified the server was named iseberg.usask.ca and selected Trust",
+          "Confirmed the checkmark appeared beside uofs-secure and verified internet access"
+        ],
+        "android": [
+          "Confirmed the client's NSID was active and PAWS password was current",
+          "{options}",
+          "Opened Settings, selected Network & Internet (or Connections), selected Wi-Fi and selected uofs-secure",
+          "Entered the following settings:",
+          " — EAP method: PEAP",
+          " — Phase 2 authentication: MSCHAPV2",
+          " — CA certificate: Use System Certificates",
+          " — Online certificate status: Request status",
+          " — Identity: client's NSID",
+          " — Password: client's PAWS password",
+          " — Domain: usask.ca",
+          "Selected Connect",
+          "Confirmed the connection succeeded and verified internet access"
+        ],
+        "chromeos": [
+          "Confirmed the client's NSID was active and PAWS password was current",
+          "{options}",
+          "Opened Settings, selected Network > Wi-Fi and selected uofs-secure",
+          "Entered the following settings:",
+          " — EAP Method: PEAP",
+          " — EAP Phase 2 authentication: MSCHAPv2",
+          " — Server CA certificate: Default",
+          " — Subject match: iseberg.usask.ca",
+          " — Domain suffix match: usask.ca",
+          " — Identity: client's NSID in the format abc123@usask.ca",
+          " — Password: client's PAWS password",
+          "Selected Connect",
+          "Confirmed the connection succeeded and verified internet access"
+        ],
+        "linux": [
+          "Confirmed the client's NSID was active and PAWS password was current",
+          "{options}",
+          "Opened Settings, selected Network, selected Wireless and selected uofs-secure",
+          "Entered the following settings in the authentication window:",
+          " — Wi-Fi Security: WPA & WPA2 Enterprise",
+          " — Authentication: Protected EAP (PEAP)",
+          " — CA Certificate: DigiCert Global Root G2",
+          " — PEAP Version: Automatic",
+          " — Inner authentication: MSCHAPv2",
+          " — Username: client's NSID in the format abc123@usask.ca",
+          " — Password: client's PAWS password",
+          "Selected Connect",
+          "Confirmed the connection succeeded and verified internet access"
+        ],
+        "remarkable": [
+          "Confirmed the client's NSID was active and PAWS password was current",
+          "{options}",
+          "Opened the hamburger menu, selected Settings, selected Wi-Fi and selected uofs-secure",
+          "Entered the following settings:",
+          " — EAP Method: PEAP",
+          " — Phase 2 authentication: MSCHAPv2",
+          " — Identity: client's NSID",
+          " — Password: client's PAWS password",
+          "Selected Connect",
+          "Confirmed the connection succeeded"
+        ]
+      },
+      "optional_steps": [
+        "Removed the saved uofs-secure network and rejoined it, as the client had recently reset their password",
+        "Installed the DigiCert certificate first, as the CA certificate could not be set to Use System Certificates"
+      ],
+      "notes": [
+        "Username format: NSID only on Windows, macOS, iOS, Android and reMarkable; full NSID@usask.ca on ChromeOS and Linux"
+      ],
+      "keywords": ["uofs-secure", "wifi", "wi-fi", "wireless", "network", "connect", "iseberg", "remarkable"]
+    },
+    {
+      "id": "KB-230",
+      "title": "Multi Factor Authentication: Set Up and Troubleshoot",
+      "category": "MFA",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/589/Multi-Factor-Authentication-Troubleshoot-MFA-Setup",
+      "steps": [
+  "Reset the MFA from IAM",
+  "Signed in to the Authenticator app and linked it with PAWS",
+  "Checked everything on myprofile.usask.ca"
+],
+      "notes": [
+        "A prompt asking to check a registered device is waiting for an approval tap, not a typed code",
+        "When number matching is on, the number shown on screen is typed into the app"
+      ]
+    },
+    {
+      "id": "KB-181",
+      "title": "Microsoft 365: Install on a Personal Device",
+      "category": "Microsoft365",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/181/Microsoft-Office-365-Install-on-a-Personal-Device",
+      "steps": [
+  "Signed in to office.com with the client's USask ID",
+  "Selected Install apps and downloaded the Microsoft 365 installer",
+  "Ran the installer and waited for the installation to finish",
+  "Opened an Office app and signed in with the client's USask ID to activate it"
+],
+      "notes": [
+        "If the browser version works but desktop applications fail, the problem is usually device registration rather than the licence"
+      ]
+    },
+    {
+      "id": "KB-3420",
+      "title": "Printing: Denied or Delayed Print Jobs",
+      "category": "Printing",
+      "public": true,
+      "synthetic": true,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/3420/CPAS-Denied-or-Delayed-Printing-Explained",
+      "steps": [
+        "Check the available print credit on the account",
+        "Check the job in the print queue for a denial reason"
+    
+      ],
+      "notes": [
+        "A denied job is most often an insufficient balance rather than a printer fault"
+      ]
+    },
+    {
+      "id": "KB-3421",
+      "title": "Software: Install from the Managed Software Catalogue",
+      "category": "Software",
+      "public": true,
+      "synthetic": true,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/3421/Software-Install-from-the-Managed-Software-Catalogue",
+      "steps": [
+        "Open the software catalogue on the managed device",
+        "Locate the application and choose install",
+        "Wait for the installation to complete and open the application"
+      ],
+      "notes": [
+        "The catalogue is only available on university managed Windows devices",
+        "Off campus the device must be on the VPN for the catalogue to populate"
+      ]
+    },
+      {
+      "id": "KB-172",
+      "title": "O365 Email: Set up USask email in Outlook on Windows",
+      "category": "Microsoft365",
+      "public": true,
+      "synthetic": true,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/172/O365-Email-Set-up-USask-email-in-Outlook-on-Windows",
+      "steps": [
+        "Opened Outlook and entered the client's USask email address",
+        "Signed in with the client's USask credentials on the Microsoft sign-in page",
+        "Approved the MFA prompt on the client's phone",
+        "Finished the account setup and confirmed the mailbox loaded"
+      ],
+      "notes": [],
+      "keywords": ["outlook", "windows", "email", "mail", "inbox", "not syncing", "send", "receive", "mailbox"]
+    },
+    {
+      "id": "KB-218",
+      "title": "Apple Mail: Setup on iPhone or iPad",
+      "category": "Microsoft365",
+      "public": true,
+      "synthetic": true,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/218/Apple-Mail-Setup-on-iPhone-or-iPad",
+      "steps": [
+        "Opened Settings > Mail > Accounts > Add Account and chose Microsoft Exchange",
+        "Entered the client's USask email address and selected Sign In",
+        "Signed in with the client's USask credentials and approved the MFA prompt",
+        "Accepted the permissions and chose Mail, Contacts and Calendars to sync",
+        "Saved the account and confirmed the mailbox loaded in the Mail app"
+      ],
+      "notes": [],
+      "keywords": ["iphone", "ipad", "apple mail", "ios", "email", "mail", "not syncing"]
+    },
+    {
+      "id": "KB-146",
+      "title": "O365 Email: Android Phone - Set up the Gmail App",
+      "category": "Microsoft365",
+      "public": true,
+      "synthetic": true,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/146/O365-Email-Android-Phone-Setup-the-Gmail-App",
+      "steps": [
+        "Opened the Gmail app and selected Add another account",
+        "Chose Exchange and Office 365 and entered the client's USask email address",
+        "Signed in with the client's USask credentials and approved the MFA prompt",
+        "Accepted the permissions and finished the account setup",
+        "Confirmed the mailbox loaded in the Gmail app"
+      ],
+      "notes": [],
+      "keywords": ["android", "gmail", "gmail app", "email", "mail", "not syncing"]
+    },
+    {
+      "id": "KB-116",
+      "title": "Access and Use the USask Remote Computer Lab",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/116/Access-and-Use-the-USask-Remote-Computer-Lab",
+      "steps": [
+  "Opened PAWS and logged in",
+  "Searched for Remote Lab and clicked Software and Computer Labs",
+  "Clicked Remote Computer Lab",
+  "Clicked Common Desktop",
+  "Clicked Connect in Session Settings",
+  "Logged in with the NSID and PAWS password"
+],
+      "notes": [],
+      "keywords": [
+        "remote lab",
+        "remote computer lab",
+        "virtual lab"
+      ]
+    },
+    {
+      "id": "KB-185",
+      "title": "Virtual Private Network (VPN)",
+      "category": "Wireless",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/185/Virtual-Private-Network-VPN",
+      "steps": [
+  "Confirmed the client's NSID was active and password was current",
+  "Confirmed the client was off campus, as the VPN should not be used while connected to the campus network",
+  "Installed and configured the USask VPN client software for the client's device",
+  "Connected to the USask VPN service at vpn.usask.ca using the client's NSID and password",
+  "Confirmed the VPN connected successfully and the client could access USask resources"
+],
+      "notes": [],
+     "keywords": ["vpn", "vpn.usask.ca", "off campus", "remote access"]
+    },
+    
+    {
+      "id": "KB-204",
+      "title": "Zoom at USask - Activate Your Account",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/204/Zoom-at-USask-Activate-Your-Account",
+      "steps": [
+  "Confirmed the client is a USask member and needed to opt in to Zoom",
+  "Had the client sign in to My Profile",
+  "Navigated to the Opt In Services section and clicked Edit",
+  "Enabled Zoom and clicked Save Changes",
+  "Advised the client that there is a delay of approximately 30 minutes after opting in before the account can be used, and that signing in sooner may show the error \"something went wrong while you tried signing in with SSO\"",
+  "Advised the client to sign in at https://usask-ca.zoom.us or through the Web Conferencing channel in PAWS, and not at zoom.us, which will return an error with USask credentials"
+],
+      "notes": [],
+      "keywords": ["zoom", "opt in", "activate", "sso", "something went wrong", "usask-ca.zoom.us", "meeting"]
+    },
+    {
+      "id": "KB-893",
+      "title": "SharePoint Online at USask",
+      "category": "Microsoft365",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/893/SharePoint-Online-at-USask",
+      "steps": [
+  "Reviewed the client's request against USask's SharePoint Online service scope",
+  "Explained that these features belonged to USask's former on-premise SharePoint server and are not part of SharePoint Online",
+  "Referred the client to Microsoft's SharePoint introduction for self-directed learning"
+],
+"optional_steps": [
+  "Advised the client that custom permissions are not supported; each site has only two groups, Owners and Members",
+  "Advised the client that ICT does not build or maintain custom workflows or forms",
+  "Advised the client that ICT does not help format or customize sites",
+  "Advised the client that email-enabled lists and libraries are not available in SharePoint Online",
+  "Advised the client that Nintex Forms and Nintex Workflows are not available in SharePoint Online"
+],
+
+      "notes": [],
+      "keywords": ["sharepoint", "site", "permissions", "workflow", "nintex", "email-enabled list", "customize site"]
+    },
+    {
+      "id": "MICROSOFT-TEAMS-AT-USASK",
+      "title": "Microsoft Teams at USask",
+      "category": "Microsoft365",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Category/109/Microsoft-Teams",
+      "steps": [
+  "Confirmed the client is eligible for a USask Teams account",
+  "Installed Microsoft Teams on the client's personal device from the Microsoft Teams website",
+  "Opened Microsoft Teams on the client's device",
+  "Client signed in with their Office 365 username in the format nsid@usask.ca and their password",
+  "Confirmed the client was signed in and could access Teams"
+],
+"platform_steps": {
+  "windows": [
+    "Confirmed the client is eligible for a USask Teams account",
+    "Installed Microsoft Teams on the client's work device via Software Center for Windows",
+    "Opened Microsoft Teams on the client's device",
+    "Client signed in with their Office 365 username in the format nsid@usask.ca and their password",
+    "Confirmed the client was signed in and could access Teams"
+  ],
+  "macos": [
+    "Confirmed the client is eligible for a USask Teams account",
+    "Installed Microsoft Teams on the client's work device via Self Service for Mac",
+    "Opened Microsoft Teams on the client's device",
+    "Client signed in with their Office 365 username in the format nsid@usask.ca and their password",
+    "Confirmed the client was signed in and could access Teams"
+  ],
+  "ios": [
+    "Confirmed the client is eligible for a USask Teams account",
+    "Installed Microsoft Teams on the client's mobile device from the App Store",
+    "Opened Microsoft Teams on the client's device",
+    "Client signed in with their Office 365 username in the format nsid@usask.ca and their password",
+    "Confirmed the client was signed in and could access Teams"
+  ],
+  "android": [
+    "Confirmed the client is eligible for a USask Teams account",
+    "Installed Microsoft Teams on the client's mobile device from Google Play",
+    "Opened Microsoft Teams on the client's device",
+    "Client signed in with their Office 365 username in the format nsid@usask.ca and their password",
+    "Confirmed the client was signed in and could access Teams"
+  ]
+},
+      "notes": [],
+      "keywords": ["teams", "microsoft teams", "meeting", "chat", "software center", "self service"]
+      
+    },
+       {
+      "id": "ONEDRIVE-ACCESS-DENIED",
+      "title": "OneDrive: Access Denied error",
+      "category": "Microsoft365",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/Shared/Search/?c=all&s=ONEDRIVE",
+      "steps": [
+        "Confirmed the client was receiving an \"Access Denied\" error when opening their USask OneDrive",
+        "Located the client's account in IAM",
+        "Selected Action > Grant Support under Services > OneDrive Online",
+        "Granted the role to spo999 to re-apply the owner permissions on the client's OneDrive",
+        "Entered the reason: in order to fix permissions on user's OneDrive (SharePoint Library)",
+        "Left the expiry date as default",
+        "Confirmed the client was able to open their OneDrive without the error"
+      ],
+      "notes": [],
+      "keywords": ["onedrive", "access denied", "permissions", "cannot open", "error", "sharepoint library"]
+    },
+    {
+      "id": "ONEDRIVE-SAVE-FILES",
+      "title": "OneDrive: Saving files to USask OneDrive",
+      "category": "Microsoft365",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/Shared/Search/?c=all&s=ONEDRIVE",
+      "steps": [
+        "Went to login.microsoftonline.com and had the client sign in with their NSID@usask.ca and NSID password",
+        "Opened OneDrive to the client's University of Saskatchewan OneDrive folder",
+        "Clicked Upload, selected Files, chose the files the client wanted to upload and clicked Open",
+        "Confirmed the files uploaded successfully to the client's OneDrive",
+        "Also showed the client how to save directly from Word, Excel or PowerPoint by selecting File > Save As > OneDrive - University of Saskatchewan"
+      ],
+      "notes": [],
+      "keywords": ["onedrive", "save", "upload", "files", "save as", "backup", "storage"]
+    },
+        {
+      "id": "JADE-MAP-DRIVE",
+      "title": "JADE: Map a drive to a departmental JADE share",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/Shared/Search/?c=all&s=JADE",
+      "steps": [
+        "Confirmed the name of the client's departmental JADE share",
+        "{options}",
+        "Confirmed the client could open the share and access their files"
+      ],
+      "optional_steps": [
+        "Mapped a network drive on the client's computer to the share on \\\\jade",
+        "Mapped the drive to the department's Domain DFS root under \\\\usask.ca instead, as the department uses a Domain DFS root"
+      ],
+      "notes": [],
+      "keywords": ["jade", "map drive", "network drive", "departmental share", "file server", "dfs"]
+    },
+    {
+      "id": "JADE-ADD-USER",
+      "title": "JADE: Add a user to a share permission group",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/Shared/Search/?c=all&s=JADE",
+      "steps": [
+        "Verified the requester is authorized to request access changes for this share, and is not requesting additional access for themselves",
+        "Logged into the IAM support interface",
+        "Under the Resources tab, selected Search Resources, chose Jade as the Resource Server and searched for the share name",
+        "{options}",
+        "Clicked Add Group Members, entered the user's NSID and a reason, checked the effective and expiry dates, and clicked Add",
+        "Advised that the user may need to log off and back on to their computer before the new access takes effect"
+      ],
+      "optional_steps": [
+        "Clicked the Groups & Services tab and selected the share's write_access permission group",
+        "Clicked the Groups & Services tab and selected the share's read-only (_ro) read_access permission group"
+      ],
+      "notes": [],
+      "keywords": ["jade", "add user", "access", "permission group", "read only", "write access", "share access"]
+    },
+    {
+      "id": "JADE-QUOTA",
+      "title": "JADE: Increase a share quota",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/Shared/Search/?c=all&s=JADE",
+      "steps": [
+        "Verified the requester is authorized to request changes for this share",
+        "Logged into the IAM support interface",
+        "Under the Resources tab, selected Search Resources, chose Jade as the Resource Server and searched for the share name",
+        "Clicked Action > Edit next to the quota attribute",
+        "Entered a higher integer value for the quota and clicked Save",
+        "{options}"
+      ],
+      "optional_steps": [
+        "As the increase was beyond 1000 GB, used Assign Attributes to select quota_tb and entered the quota in TB"
+      ],
+      "notes": [],
+      "keywords": ["jade", "quota", "storage", "space", "full", "increase", "quota_tb"]
+    },
+    {
+      "id": "JADE-TROUBLESHOOT",
+      "title": "JADE: Client cannot access a share",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/Shared/Search/?c=all&s=JADE",
+      "steps": [
+        "Confirmed the client was logged on to their computer with an account that should have access to the share",
+        "Confirmed the client's computer was on a functional on-campus wired or wireless network",
+        "Checked whether the client could see the share by browsing to \\\\jade",
+        "Confirmed other JADE shares were reachable under \\\\jade2, \\\\jade3 and \\\\jade4, confirming the servers were up",
+        "In IAM, searched the share under Resources > Search Resources and ran a Get Info transaction to check the share's permission groups",
+        "{options}",
+        "Confirmed the client could access the share"
+      ],
+      "optional_steps": [
+        "Found the client was not a member of the share's permission groups",
+        "Found the client had recently been added to the group",
+        "Had the client log off and back on to their computer so the new group membership took effect"
+      ],
+      "notes": [],
+      "keywords": ["jade", "cannot access", "can't access", "share", "access denied", "not working", "missing share"]
+    },
+        {
+      "id": "KB-318",
+      "title": "SPSS: Getting Started",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/318/SPSS-Getting-Started",
+      "steps": [
+        "Opened PAWS and logged in",
+        "Searched for Remote Lab and clicked Software and Computer Labs",
+        "Clicked Remote Computer Lab",
+        "Clicked Common Desktop",
+        "Clicked Connect in Session Settings",
+        "Logged in with the NSID and PAWS password",
+        "Opened SPSS from the Remote Computer Lab desktop",
+        "Confirmed SPSS opened in the remote session"
+      ],
+      "notes": [
+        "Students access SPSS through the Remote Computer Lab rather than installing it on a personal device"
+      ],
+      "keywords": ["spss", "statistics", "ibm spss", "stats software", "remote lab", "course software"]
+    },
+       {
+      "id": "KB-1302",
+      "title": "ArcGIS Pro: How to Install",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/1302/ArcGIS-Pro-How-to-install",
+      "steps": [
+        "Confirmed the client's ArcGIS Online account was active using their USask NSID and password",
+        "Signed in to the client's ArcGIS Online organization account, clicked their username and selected My settings",
+        "Opened the Licenses tab and confirmed ArcGIS Pro was listed with the Download ArcGIS Pro link",
+        "Clicked Download ArcGIS Pro, reviewed the language setting and clicked Download",
+        "Installed the Microsoft .NET framework as the required prerequisite",
+        "Ran the ArcGIS Pro installer and installed with the \"Anyone who uses this machine (all users)\" option to enable license management",
+        "Client reviewed and agreed to the Educational program license terms",
+        "Launched ArcGIS Pro and selected Your ArcGIS organization's URL",
+        "Entered \"spatialsk\", clicked Continue and selected University of Saskatchewan",
+        "Client signed in with their NSID and password to authorize the license",
+        "Confirmed ArcGIS Pro opened with a valid license"
+      ],
+      "notes": [],
+      "keywords": ["arcgis", "arcgis pro", "gis", "esri", "mapping", "spatialsk", "license"]
+    },
+       {
+      "id": "CLASS-OVERRIDE",
+      "title": "Class Registration: Request a class override",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/Shared/Search/?c=all&s=CLASS+REGISTRATION",
+      "steps": [
+        "Had the client attempt registration under Register for Classes, add the class by CRN to the summary and click Submit",
+        "Reviewed the error by hovering over \"Errors Preventing Registration\"",
+        "Went to the class overrides and changing audit/credit status page and clicked Request a class override",
+        "Clicked Apply for New Override and selected Registration Error as the override type",
+        "Selected the class, entered the client's reason for the override and clicked Submit Request",
+        "Confirmed the request appeared on the client's override dashboard with the status New Request",
+        "Advised the client that the request will be processed by the college or department and they will receive an email with the decision",
+        "Advised the client that if approved, they must return to the registration channel and register for the class themselves, as registration is not automatic"
+      ],
+      "notes": [],
+      "keywords": ["registration", "register", "class", "course", "override", "crn", "errors preventing registration", "prerequisite", "class full"]
+    },
+       {
+      "id": "KB-248",
+      "title": "Cabinet: Can't See All My Files",
+      "category": "Software",
+      "public": true,
+      "synthetic": false,
+      "url": "https://teamdynamix.usask.ca/TDClient/33/Portal/KB/Article/248/Cabinet-Can-t-See-All-My-Files",
+      "steps": [
+        "Confirmed the client is on a USask managed Windows device using Offline Files, and that Cabinet had been marked offline because the device couldn't reach the network share at logon",
+        "{options}",
+        "Opened the client's Cabinet folder in File Explorer",
+        "Clicked the Home tab, then Easy Access > Work Online",
+        "Refreshed the window and confirmed all of the client's Cabinet files were visible"
+      ],
+      "optional_steps": [
+        "Confirmed the client was connected to the USask VPN, as they were off campus",
+        "Opened Control Panel > Windows Tools first, as the device runs Windows 11"
+      ],
+      "notes": [],
+      "keywords": ["cabinet", "files missing", "cannot see files", "offline files", "work online", "network share", "h drive"]
+    },
+    {
+      "id": "DEVICE-BASICS",
+      "title": "Devices: Basic Hardware Troubleshooting",
+      "category": "Device",
+      "public": true,
+      "synthetic": true,
+      "url": "",
+      "steps": [
+        "Confirm the device powers on and is charged",
+        "Reseat cables and try a different port or cable",
+        "Restart the device and retest",
+        "Record the model and symptoms if the problem persists"
+      ],
+      "notes": [
+        "Physical repair of university owned equipment is handled by a technician, not at the desk"
+      ]
+    }
+  ],
+  "platform_notes": [
+    {
+      "id": "identity-format",
+      "applies_to": [
+        "Wireless"
+      ],
+      "trigger": [
+        "chromebook",
+        "chromeos",
+        "chrome os",
+        "linux",
+        "ubuntu"
+      ],
+      "note": "On ChromeOS and Linux the wireless identity needs the full username with the domain, not the short username alone. This is the most common first attempt failure."
+    },
+    {
+      "id": "mac-admin-password",
+      "applies_to": [
+        "Wireless"
+      ],
+      "trigger": [
+        "mac",
+        "macbook",
+        "macos",
+        "os x"
+      ],
+      "note": "On macOS the certificate trust prompt asks for the local Mac administrator password. Clients on personally owned Macs often do not know it, which stops the connection."
+    },
+    {
+      "id": "post-reset-sync",
+      "applies_to": [
+        "Wireless",
+        "Accounts",
+        "Microsoft365"
+      ],
+      "trigger": [
+        "reset",
+        "changed password",
+        "new password",
+        "password change"
+      ],
+      "note": "After a password reset the client must update saved wireless networks, VPN, phone mail sync and any password manager. Synchronisation is not instant, so an immediate failure is usually a saved old password rather than a fault."
+    },
+    {
+      "id": "mfa-push-not-code",
+      "applies_to": [
+        "MFA"
+      ],
+      "trigger": [
+        "code",
+        "text",
+        "sms",
+        "registered device",
+        "no code"
+      ],
+      "note": "A message asking the client to check their registered device is waiting for an approval tap in the authenticator app, not a typed code. With number matching the number on screen is typed into the app."
+    },
+    {
+      "id": "desktop-vs-web",
+      "applies_to": [
+        "Microsoft365"
+      ],
+      "trigger": [
+        "desktop",
+        "outlook app",
+        "135011",
+        "web works",
+        "browser works"
+      ],
+      "note": "When the browser version works but desktop applications fail, check the device registration rather than the user licence. This is above desk level and is escalated."
+    },
+    {
+      "id": "catalogue-managed-only",
+      "applies_to": [
+        "Software"
+      ],
+      "trigger": [
+        "software center",
+        "software centre",
+        "personal laptop",
+        "own laptop",
+        "catalogue"
+      ],
+      "note": "The managed software catalogue only works on university managed Windows devices and needs the VPN when off campus. It is not an option on a personal laptop."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+# Render deploy settings. Secrets are marked sync: false, so Render asks for
+# them in its dashboard and they never live in this file or the repository.
+services:
+  - type: web
+    name: ticket-maker
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python scripts/train.py
+    startCommand: gunicorn wsgi:app --workers 2 --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: TICKET_MAKER_BEHIND_PROXY
+        value: "1"
+      - key: TICKET_MAKER_DESK_PASSWORD
+        sync: false
+      - key: TICKET_MAKER_SECRET_KEY
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false

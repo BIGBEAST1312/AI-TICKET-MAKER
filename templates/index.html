@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ticket Maker</title>
+<link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<button id="menu" class="menu" aria-label="Show common issues">Common issues</button>
+
+<div class="shell">
+
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">
+      <img class="brand-mark" src="{{ url_for('static', filename='logo.png') }}" alt="">
+      <span>Ticket Maker</span>
+    </div>
+    <p class="sidebar-kicker">Common issues</p>
+    <nav id="shortcuts"></nav>
+    <p class="sidebar-foot">Pick an issue to pre-fill the form, then edit the details before drafting.</p>
+  </aside>
+
+  <main>
+    <header>
+      <div class="title-row">
+        <img class="title-mark" src="{{ url_for('static', filename='logo.png') }}" alt="">
+        <div>
+          <h1>Ticket Maker</h1>
+          <p class="kicker">IT support desk</p>
+        </div>
+      </div>
+      <p class="sub">Turns a support interaction into a ticket in the four field format. The rules decide the status; you check the flags before filing.</p>
+    </header>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-mode="staff" role="tab">Staff</button>
+      <button class="tab" data-mode="student" role="tab">Student</button>
+    </div>
+
+    <!-- Staff sign in, shown only when the server says a password is set -->
+    <section id="signin" class="panel" hidden>
+      <h2>Staff sign in</h2>
+      <p id="signin-message" class="sub">Staff drafting is restricted. Enter the desk password to continue, or use the student tab.</p>
+      <label for="password">Desk password</label>
+      <input id="password" type="password" autocomplete="current-password">
+      <p id="signin-error" class="signin-error" hidden></p>
+      <button id="signin-go">Sign in</button>
+    </section>
+
+    <section id="form" class="panel">
+      <label for="text" id="text-label">What happened at the desk</label>
+      <textarea id="text" rows="4" placeholder="Client could not connect to the secure wireless on a Chromebook after resetting their password."></textarea>
+
+      <label for="notes" id="notes-label">Your notes on what was done</label>
+      <textarea id="notes" rows="4" placeholder="Removed the saved network, re-entered the identity with the domain, connection confirmed working before they left."></textarea>
+
+      <p class="hint">Do not paste names, student numbers or other client identifying details.</p>
+      <button id="go">Draft the ticket</button>
+      <p class="signout-row"><button id="signout" class="linkish" hidden>Sign out</button></p>
+    </section>
+
+    <section id="output" hidden>
+      <div id="verdict" class="verdict"></div>
+      <div id="flags"></div>
+      <div id="fields"></div>
+      <details id="why">
+        <summary>Why it decided this</summary>
+        <div id="why-body"></div>
+      </details>
+    </section>
+  </main>
+</div>
+
+<script>
+const SHORTCUTS = [
+  { label: "Printing", prompt: "A campus printer will not print the client's job.", hint: "Note the printer name, building, and whether the job shows in the queue." },
+  { label: "MFA", prompt: "The client is locked out of multi factor authentication.", hint: "Note whether they have a new phone, lost device, or changed number." },
+  { label: "Office 365", prompt: "The client has a problem with their Office 365 account or apps.", hint: "Note which app (Outlook, Word, Teams) and any error message." },
+  { label: "SPSS", prompt: "The client needs help with SPSS licensing or installation.", hint: "Note the device type, course, and any licence error shown." },
+  { label: "Remote Lab", prompt: "The client cannot connect to the remote computer lab.", hint: "Note the error, their device, and whether it happens off campus too." },
+  { label: "Wireless", prompt: "The client cannot connect to the campus wireless network.", hint: "Note the network name, location, and whether other devices connect." },
+  { label: "Password Recovery", prompt: "The client forgot their password and cannot sign in.", hint: "Note whether self service reset failed and any error shown." },
+  { label: "Account Compromised", prompt: "The client reports suspicious activity on their account.", hint: "Note what was seen (emails sent, sign in alerts) and when." }
+];
+
+const $ = (id) => document.getElementById(id);
+const state = { passwordRequired: false, staffAuthenticated: true };
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+function currentMode() {
+  const active = document.querySelector(".tab.active");
+  return active ? active.dataset.mode : "staff";
+}
+
+/* --- shortcuts ------------------------------------------------------- */
+$("shortcuts").innerHTML = SHORTCUTS
+  .map((s, i) => `<button class="shortcut" data-i="${i}">${escapeHtml(s.label)}</button>`).join("");
+
+document.querySelectorAll(".shortcut").forEach(button => {
+  button.addEventListener("click", () => {
+    const pick = SHORTCUTS[Number(button.dataset.i)];
+    document.querySelectorAll(".shortcut").forEach(b => b.classList.remove("on"));
+    button.classList.add("on");
+    $("text").value = pick.prompt;
+    $("notes").value = "";
+    $("notes").placeholder = pick.hint;
+    $("output").hidden = true;
+    $("sidebar").classList.remove("open");
+  });
+});
+
+$("menu").addEventListener("click", () => $("sidebar").classList.toggle("open"));
+
+/* --- tabs ------------------------------------------------------------ */
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    const staff = tab.dataset.mode === "staff";
+    $("text-label").textContent = staff ? "What happened at the desk" : "Describe your problem";
+    $("notes-label").textContent = staff ? "Your notes on what was done" : "What you have already tried";
+    $("output").hidden = true;
+    applyGate();
+  });
+});
+
+/* --- the staff gate, decided by the server --------------------------- */
+function applyGate() {
+  const locked = currentMode() === "staff" && state.passwordRequired && !state.staffAuthenticated;
+  $("signin").hidden = !locked;
+  $("form").hidden = locked;
+  $("signout").hidden = !(state.passwordRequired && state.staffAuthenticated);
+}
+
+fetch("/api/session")
+  .then(r => r.json())
+  .then(s => {
+    state.passwordRequired = s.password_required === true;
+    state.staffAuthenticated = s.staff_authenticated === true;
+    applyGate();
+  })
+  .catch(() => {});
+
+$("signin-go").addEventListener("click", async () => {
+  const button = $("signin-go");
+  button.disabled = true;
+  $("signin-error").hidden = true;
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: $("password").value })
+    });
+    const data = await response.json();
+    if (response.ok) {
+      state.staffAuthenticated = true;
+      $("password").value = "";
+      $("signin-message").textContent = "Staff drafting is restricted. Enter the desk password to continue, or use the student tab.";
+      applyGate();
+    } else {
+      $("signin-error").textContent = data.error || "That password was not recognised.";
+      $("signin-error").hidden = false;
+    }
+  } catch {
+    $("signin-error").textContent = "The sign in service could not be reached.";
+    $("signin-error").hidden = false;
+  }
+  button.disabled = false;
+});
+
+$("password").addEventListener("keydown", e => { if (e.key === "Enter") $("signin-go").click(); });
+
+$("signout").addEventListener("click", async () => {
+  await fetch("/api/logout", { method: "POST" }).catch(() => {});
+  state.staffAuthenticated = false;
+  $("output").hidden = true;
+  applyGate();
+});
+
+/* --- drafting -------------------------------------------------------- */
+function safeUrl(url) {
+  // Only real web links become clickable; anything else renders as plain text.
+  return /^https:\/\//.test(url || "") ? url : "";
+}
+
+function articlePill(article) {
+  const url = safeUrl(article.url);
+  const label = escapeHtml(article.title);
+  return url
+    ? `<a class="pill pill-link" href="${escapeHtml(url)}" target="_blank" rel="noopener">${label} ↗</a>`
+    : `<span class="pill">${label}</span>`;
+}
+
+function fieldBlock(name, value) {
+  const marked = escapeHtml(value).replace(/\[CHECK\]/g, '<span class="check">[CHECK]</span>');
+  return `<article class="field">
+    <div class="field-head"><h3>${escapeHtml(name)}</h3><button class="copy" data-value="${escapeHtml(value)}">Copy</button></div>
+    <pre>${marked}</pre>
+  </article>`;
+}
+
+$("go").addEventListener("click", async () => {
+  const button = $("go");
+  button.disabled = true;
+  button.textContent = "Drafting…";
+
+  let response, data;
+  try {
+    response = await fetch("/api/draft", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mode: currentMode(), text: $("text").value, notes: $("notes").value })
+    });
+    data = await response.json();
+  } catch {
+    button.disabled = false;
+    button.textContent = "Draft the ticket";
+    $("output").hidden = false;
+    $("verdict").innerHTML = `<p class="notice bad">The drafting service could not be reached.</p>`;
+    return;
+  }
+
+  button.disabled = false;
+  button.textContent = "Draft the ticket";
+
+  if (response.status === 401) {
+    state.staffAuthenticated = false;
+    $("signin-message").textContent = "Your session ended. Enter the desk password to continue.";
+    $("output").hidden = true;
+    applyGate();
+    return;
+  }
+
+  $("output").hidden = false;
+
+  if (!response.ok) {
+    $("verdict").innerHTML = `<p class="notice bad">${escapeHtml(data.error || "The ticket could not be drafted.")}</p>`;
+    $("flags").innerHTML = "";
+    $("fields").innerHTML = "";
+    $("why-body").innerHTML = "";
+    return;
+  }
+
+  const statusClass = data.escalate ? "bad" : (data.status === "Resolved" ? "good" : "warn");
+  $("verdict").innerHTML = `
+    <span class="pill">${escapeHtml(data.category)} · ${Math.round(data.category_confidence * 100)}%</span>
+    <span class="pill">Priority ${escapeHtml(data.priority)}</span>
+    <span class="pill">${({ claude: "Written by Claude", gemini: "Written by Gemini" })[data.drafter] || "Template draft"}</span>
+    <span class="pill ${statusClass}">${escapeHtml(data.status)}</span>
+    ${data.article ? articlePill(data.article) : `<span class="pill warn">No article matched</span>`}`;
+
+  const notices = [];
+  const link = data.article ? safeUrl(data.article.url) : "";
+  const PLATFORM_NAMES = { windows: "Windows", macos: "macOS", ios: "iPhone and iPad", android: "Android", chromeos: "Chromebook", linux: "Linux", remarkable: "reMarkable" };
+  if (data.article && data.article.platform) {
+    notices.push(["ask", `Steps shown for ${PLATFORM_NAMES[data.article.platform] || data.article.platform}.`]);
+  }
+  if (data.escalate) notices.push(["bad", "Escalation: " + data.escalation_reason]);
+  data.platform_warnings.forEach(w => notices.push(["warn", w.note]));
+  data.flags.forEach(f => notices.push(["warn", f]));
+  data.missing_information.forEach(q => notices.push(["ask", q]));
+  $("flags").innerHTML = notices
+    .map(([kind, message]) => `<p class="notice ${kind}">${escapeHtml(message)}</p>`).join("")
+    + (link ? `<p class="notice ask">Related article: <a href="${escapeHtml(link)}" target="_blank" rel="noopener">${escapeHtml(data.article.title)}</a></p>` : "");
+
+  $("fields").innerHTML = Object.entries(data.fields)
+    .map(([name, value]) => fieldBlock(name, value)).join("");
+
+  $("why-body").innerHTML = `
+    <p>Status: ${escapeHtml(data.status_reason)}.</p>
+    <p>Escalation decided by: ${escapeHtml(data.escalation_source)}.</p>
+    <p>Words that drove the category: ${escapeHtml((data.driving_terms || []).join(", ") || "none")}.</p>`;
+
+  document.querySelectorAll(".copy").forEach(button => {
+    button.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(button.dataset.value);
+      button.textContent = "Copied";
+      setTimeout(() => (button.textContent = "Copy"), 1200);
+    });
+  });
+});
+</script>
+</body>
+</html>
